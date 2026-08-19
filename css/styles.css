@@ -41,7 +41,8 @@ a { color: inherit; text-decoration: none; }
 }
 
 .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 900; }
-.brand-mark { padding: 8px 10px; border: 3px solid var(--ink); border-radius: 14px; color: var(--paper); background: linear-gradient(135deg, var(--coral), var(--ember)); box-shadow: 4px 4px 0 var(--ink); letter-spacing: -0.08em; }
+.brand-mark { color: var(--ink); font-size: 1.45rem; letter-spacing: -0.08em; line-height: 1; }
+.brand-mark sup { font-size: 0.55em; line-height: 0; position: relative; top: -0.45em; }
 .brand-name { font-size: 1.15rem; }
 
 .nav-links { list-style: none; display: flex; gap: 16px; padding: 0; margin: 0; font-weight: 800; }
@@ -60,6 +61,7 @@ a { color: inherit; text-decoration: none; }
 .eyebrow { color: var(--ember); font-weight: 900; text-transform: uppercase; letter-spacing: 0.09em; margin: 0 0 10px; }
 h1, .section-title { font-size: clamp(2.25rem, 8vw, 5rem); line-height: 0.96; letter-spacing: -0.06em; margin: 0 0 20px; }
 .section-title { font-size: clamp(2rem, 7vw, 4rem); }
+.brand-tagline { margin: -2px 0 12px; color: rgba(26, 26, 26, 0.62); font-size: 0.98rem; font-weight: 800; }
 .hero-copy, .section-intro { font-size: 1.13rem; max-width: 700px; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
 .btn { display: inline-flex; justify-content: center; align-items: center; min-height: 46px; padding: 12px 18px; border: 2px solid var(--ink); border-radius: 999px; font-weight: 900; cursor: pointer; box-shadow: 4px 4px 0 var(--ink); transition: transform 160ms ease, box-shadow 160ms ease; }
@@ -98,10 +100,6 @@ h1, .section-title { font-size: clamp(2.25rem, 8vw, 5rem); line-height: 0.96; le
   box-shadow: 0 10px 30px rgba(26, 26, 26, 0.04);
 }
 
-.home-page .brand-mark {
-  border: 0;
-  box-shadow: none;
-}
 
 .home-page .nav-links a:hover {
   background: rgba(214, 162, 76, 0.16);
