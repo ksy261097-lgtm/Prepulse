@@ -190,6 +190,22 @@
       0%, 100% { opacity: 0.48; transform: scale(0.98); }
       50% { opacity: 0.78; transform: scale(1.04); }
     }
+
+    .fitness-carousel { max-width: 680px; margin: 28px auto 4px; position: relative; }
+    .fitness-carousel__viewport { overflow: hidden; border-radius: 24px; touch-action: pan-y; }
+    .fitness-carousel__track { display: flex; transition: transform 540ms cubic-bezier(.22, 1, .36, 1); will-change: transform; }
+    .fitness-carousel__slide { flex: 0 0 100%; min-width: 100%; padding: 3px; box-sizing: border-box; }
+    .fitness-carousel__slide .course-card { width: 100%; box-sizing: border-box; margin: 0; min-height: 270px; display: flex; flex-direction: column; align-items: flex-start; }
+    .fitness-carousel__slide .course-card p { flex: 1; }
+    .fitness-carousel__controls { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 14px; }
+    .carousel-arrow { width: 36px; height: 36px; border: 1px solid var(--theme-border); border-radius: 50%; background: rgba(36, 28, 28, .78); color: var(--theme-text); font-size: 25px; line-height: 1; cursor: pointer; transition: border-color 180ms ease, color 180ms ease, transform 180ms ease; }
+    .carousel-arrow:hover, .carousel-arrow:focus-visible { color: var(--theme-primary); border-color: var(--theme-primary); transform: scale(1.05); }
+    .carousel-arrow:disabled { opacity: .4; cursor: default; transform: none; }
+    .carousel-dots { display: flex; align-items: center; gap: 8px; }
+    .carousel-dot { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%; background: var(--theme-text); opacity: .35; cursor: pointer; transition: transform 180ms ease, opacity 180ms ease, background 180ms ease; }
+    .carousel-dot[aria-selected="true"] { background: var(--theme-primary); opacity: 1; transform: scale(1.35); }
+    @media (max-width: 720px) { .fitness-carousel { width: min(90vw, 680px); } .fitness-carousel__slide .course-card { min-height: 255px; } }
+    @media (prefers-reduced-motion: reduce) { .fitness-carousel__track { transition-duration: 1ms; } .carousel-arrow, .carousel-dot { transition: none; } }
   </style>
 </head>
 <body class="theme-fitness">
@@ -232,13 +248,16 @@
         <span class="fitness-progress__fill"></span>
       </div>
     </section>
-    <div class="course-grid">
-      <!-- TODO: connect to Supabase for admin-managed prices and course listings. -->
-      <!-- price editable by admin later: FITNESS_PRICE = ₹399 -->
-      <article class="course-card" data-price="399"><h2>Fat Loss Program</h2><p>Calorie-aware workouts and nutrition habits for sustainable fat loss.</p><strong class="price">₹399</strong><button class="btn btn-primary">View Details</button></article>
-      <article class="course-card" data-price="399"><h2>Muscle Building Program</h2><p>Progressive strength routines with protein and recovery guidance.</p><strong class="price">₹399</strong><button class="btn btn-primary">Enroll</button></article>
-      <article class="course-card" data-price="399"><h2>General Fitness</h2><p>Balanced mobility, strength, stamina, and everyday wellness habits.</p><strong class="price">₹399</strong><button class="btn btn-primary">View Details</button></article>
-    </div>
+    <section class="fitness-carousel" aria-roledescription="carousel" aria-label="Fitness programs">
+      <div class="fitness-carousel__viewport">
+        <div class="fitness-carousel__track" id="fitness-carousel-track"></div>
+      </div>
+      <div class="fitness-carousel__controls">
+        <button class="carousel-arrow" type="button" data-carousel-prev aria-label="Previous fitness program">‹</button>
+        <div class="carousel-dots" role="tablist" aria-label="Choose a fitness program"></div>
+        <button class="carousel-arrow" type="button" data-carousel-next aria-label="Next fitness program">›</button>
+      </div>
+    </section>
   </main>
   <footer class="site-footer"><p><strong>PPL</strong> PrePulse — Exam prep, school learning, and fitness in one place.</p><p class="footer-note">Static demo. Backend, payment verification, and content database will be connected later.</p></footer>
   <script src="js/main.js"></script>
