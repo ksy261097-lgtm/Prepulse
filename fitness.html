@@ -1,2 +1,167 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Fitness | PrePulse</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/styles.css"></head><body class="theme-fitness"><header class="site-header"><nav class="navbar" aria-label="Primary navigation"><a class="brand" href="index.html"><span class="brand-mark">P<sup>2</sup></span><span class="brand-name">PrePulse</span></a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu"><span></span><span></span><span></span></button><ul class="nav-links" id="primary-menu"><li><a href="index.html">Home</a></li><li><a href="dashboard.html">Dashboard</a></li><li><a href="exam-prep.html">Exam Prep</a></li><li><a href="school.html">School</a></li><li><a href="fitness.html">Fitness</a></li></ul></nav></header><main class="section-shell"><p class="eyebrow">Training plans</p><h1 class="section-title">Fitness programs</h1><p class="section-intro">Simple training and nutrition tracks designed to support consistency.</p><div class="course-grid">
-<!-- TODO: connect to Supabase for admin-managed prices and course listings. --><!-- price editable by admin later: FITNESS_PRICE = ₹399 --><article class="course-card" data-price="399"><h2>Fat Loss Program</h2><p>Calorie-aware workouts and nutrition habits for sustainable fat loss.</p><strong class="price">₹399</strong><button class="btn btn-primary">View Details</button></article><article class="course-card" data-price="399"><h2>Muscle Building Program</h2><p>Progressive strength routines with protein and recovery guidance.</p><strong class="price">₹399</strong><button class="btn btn-primary">Enroll</button></article><article class="course-card" data-price="399"><h2>General Fitness</h2><p>Balanced mobility, strength, stamina, and everyday wellness habits.</p><strong class="price">₹399</strong><button class="btn btn-primary">View Details</button></article></div></main><footer class="site-footer"><p><strong>PPL</strong> PrePulse — Exam prep, school learning, and fitness in one place.</p><p class="footer-note">Static demo. Backend, payment verification, and content database will be connected later.</p></footer><script src="js/main.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fitness | PrePulse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .theme-fitness {
+      position: relative;
+      overflow-x: hidden;
+      isolation: isolate;
+    }
+
+    .theme-fitness::before {
+      content: "";
+      position: fixed;
+      inset: auto -10vw 8vh auto;
+      z-index: 0;
+      width: min(46rem, 82vw);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232, 70, 28, 0.16), rgba(255, 107, 53, 0.08) 38%, transparent 68%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .theme-fitness .site-header,
+    .theme-fitness .section-shell,
+    .theme-fitness .site-footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    .theme-fitness .course-card {
+      transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+      will-change: transform;
+    }
+
+    .fitness-progress {
+      max-width: 34rem;
+      margin: 28px 0 4px;
+      padding: 18px;
+      border: 1px solid var(--theme-border);
+      border-radius: 22px;
+      background: rgba(36, 28, 28, 0.76);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.22);
+    }
+
+    .fitness-progress__meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 10px;
+      color: var(--theme-text);
+      font-weight: 900;
+    }
+
+    .fitness-progress__value {
+      color: var(--theme-achievement);
+    }
+
+    .fitness-progress__track {
+      height: 12px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(245, 237, 232, 0.12);
+    }
+
+    .fitness-progress__fill {
+      display: block;
+      width: 68%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--theme-achievement), #f0c76a);
+      transform-origin: left center;
+      box-shadow: 0 0 16px rgba(217, 169, 78, 0.32);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .theme-fitness::before {
+        animation: fitness-ambient-glow 5.5s ease-in-out infinite;
+      }
+
+      .theme-fitness .btn-primary {
+        animation: fitness-cta-glow 2.1s ease-in-out infinite;
+      }
+
+      .theme-fitness .course-card:hover,
+      .theme-fitness .course-card:active,
+      .theme-fitness .course-card:focus-within {
+        transform: translateY(-4px);
+        box-shadow: 0 24px 54px rgba(0, 0, 0, 0.32), 0 0 28px rgba(232, 70, 28, 0.18);
+      }
+
+      .fitness-progress__fill {
+        animation: fitness-progress-fill 1.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .theme-fitness::before,
+      .theme-fitness .btn-primary,
+      .fitness-progress__fill {
+        animation: none;
+      }
+
+      .theme-fitness .course-card,
+      .theme-fitness .btn {
+        transition: none;
+        will-change: auto;
+      }
+    }
+
+    @keyframes fitness-cta-glow {
+      0%, 100% { box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.38), 0 0 0 rgba(232, 70, 28, 0); }
+      48% { box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.38), 0 0 18px rgba(232, 70, 28, 0.26); }
+    }
+
+    @keyframes fitness-progress-fill {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    @keyframes fitness-ambient-glow {
+      0%, 100% { opacity: 0.48; transform: scale(0.98); }
+      50% { opacity: 0.78; transform: scale(1.04); }
+    }
+  </style>
+</head>
+<body class="theme-fitness">
+  <header class="site-header">
+    <nav class="navbar" aria-label="Primary navigation">
+      <a class="brand" href="index.html"><span class="brand-mark">P<sup>2</sup></span><span class="brand-name">PrePulse</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="primary-menu"><li><a href="index.html">Home</a></li><li><a href="dashboard.html">Dashboard</a></li><li><a href="exam-prep.html">Exam Prep</a></li><li><a href="school.html">School</a></li><li><a href="fitness.html">Fitness</a></li></ul>
+    </nav>
+  </header>
+  <main class="section-shell">
+    <p class="eyebrow">Training plans</p>
+    <h1 class="section-title">Fitness programs</h1>
+    <p class="section-intro">Simple training and nutrition tracks designed to support consistency.</p>
+    <section class="fitness-progress" aria-labelledby="fitness-progress-title">
+      <div class="fitness-progress__meta">
+        <span id="fitness-progress-title">Today's progress</span>
+        <span class="fitness-progress__value">68%</span>
+      </div>
+      <div class="fitness-progress__track" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" aria-label="Today's progress">
+        <span class="fitness-progress__fill"></span>
+      </div>
+    </section>
+    <div class="course-grid">
+      <!-- TODO: connect to Supabase for admin-managed prices and course listings. -->
+      <!-- price editable by admin later: FITNESS_PRICE = ₹399 -->
+      <article class="course-card" data-price="399"><h2>Fat Loss Program</h2><p>Calorie-aware workouts and nutrition habits for sustainable fat loss.</p><strong class="price">₹399</strong><button class="btn btn-primary">View Details</button></article>
+      <article class="course-card" data-price="399"><h2>Muscle Building Program</h2><p>Progressive strength routines with protein and recovery guidance.</p><strong class="price">₹399</strong><button class="btn btn-primary">Enroll</button></article>
+      <article class="course-card" data-price="399"><h2>General Fitness</h2><p>Balanced mobility, strength, stamina, and everyday wellness habits.</p><strong class="price">₹399</strong><button class="btn btn-primary">View Details</button></article>
+    </div>
+  </main>
+  <footer class="site-footer"><p><strong>PPL</strong> PrePulse — Exam prep, school learning, and fitness in one place.</p><p class="footer-note">Static demo. Backend, payment verification, and content database will be connected later.</p></footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
