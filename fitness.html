@@ -35,6 +35,43 @@
       z-index: 1;
     }
 
+    .theme-fitness .section-shell {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .theme-fitness .section-shell > :not(.deadlift-bg) {
+      position: relative;
+      z-index: 1;
+    }
+
+    .deadlift-bg {
+      position: absolute;
+      right: clamp(-72px, -4vw, -20px);
+      top: 22px;
+      width: min(340px, 34vw);
+      height: 290px;
+      color: var(--theme-primary);
+      opacity: 0.16;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .deadlift-bg svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .deadlift-bg .lifter-torso {
+      transform-origin: 143px 178px;
+      animation: deadlift-hinge 4s ease-in-out infinite;
+    }
+
+    .deadlift-bg .barbell {
+      animation: deadlift-bar 4s ease-in-out infinite;
+    }
+
     .theme-fitness .course-card {
       transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
       will-change: transform;
@@ -81,6 +118,16 @@
       box-shadow: 0 0 16px rgba(217, 169, 78, 0.32);
     }
 
+    @media (max-width: 600px) {
+      .deadlift-bg {
+        right: -48px;
+        top: 54px;
+        width: 200px;
+        height: 170px;
+        opacity: 0.12;
+      }
+    }
+
     @media (prefers-reduced-motion: no-preference) {
       .theme-fitness::before {
         animation: fitness-ambient-glow 5.5s ease-in-out infinite;
@@ -105,7 +152,9 @@
     @media (prefers-reduced-motion: reduce) {
       .theme-fitness::before,
       .theme-fitness .btn-primary,
-      .fitness-progress__fill {
+      .fitness-progress__fill,
+      .deadlift-bg .lifter-torso,
+      .deadlift-bg .barbell {
         animation: none;
       }
 
@@ -115,6 +164,17 @@
         will-change: auto;
       }
     }
+
+    @keyframes deadlift-hinge {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(-38deg); }
+    }
+
+    @keyframes deadlift-bar {
+      0%, 100% { transform: translateY(52px); }
+      50% { transform: translateY(160px); }
+    }
+
 
     @keyframes fitness-cta-glow {
       0%, 100% { box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.38), 0 0 0 rgba(232, 70, 28, 0); }
@@ -141,6 +201,25 @@
     </nav>
   </header>
   <main class="section-shell">
+    <div class="deadlift-bg" aria-hidden="true">
+      <svg viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg">
+        <g class="lifter">
+          <line x1="120" y1="230" x2="110" y2="180" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+          <line x1="150" y1="230" x2="140" y2="180" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+          <g class="lifter-torso">
+            <circle cx="150" cy="120" r="16" fill="currentColor"/>
+            <line x1="150" y1="136" x2="140" y2="180" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+            <line x1="145" y1="150" x2="105" y2="175" stroke="currentColor" stroke-width="6" stroke-linecap="round" class="lifter-arm"/>
+          </g>
+        </g>
+        <g class="barbell">
+          <line x1="60" y1="0" x2="150" y2="0" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="60" cy="0" r="14" fill="none" stroke="currentColor" stroke-width="5"/>
+          <circle cx="150" cy="0" r="14" fill="none" stroke="currentColor" stroke-width="5" opacity="0"/>
+        </g>
+        <line x1="20" y1="230" x2="280" y2="230" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+      </svg>
+    </div>
     <p class="eyebrow">Training plans</p>
     <h1 class="section-title">Fitness programs</h1>
     <p class="section-intro">Simple training and nutrition tracks designed to support consistency.</p>
