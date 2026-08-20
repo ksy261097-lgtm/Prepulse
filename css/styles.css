@@ -76,6 +76,11 @@ h1, .section-title { font-size: clamp(2.25rem, 8vw, 5rem); line-height: 0.96; le
 .hub-card, .course-card { min-height: 250px; display: flex; flex-direction: column; align-items: flex-start; }
 .hub-card:hover, .course-card:hover, .feature-card:hover { border-color: var(--ember); }
 .hub-card p, .course-card p { flex: 1; }
+.course-addons { display: grid; gap: 14px; width: 100%; margin: 8px 0 18px; }
+.course-addon { padding-top: 14px; border-top: 1px solid var(--line); }
+.course-addon h3 { margin: 0 0 6px; font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ember); }
+.course-addon p { margin: 0 0 8px; font-size: 0.95rem; }
+.course-addon ul { margin: 0; padding-left: 18px; font-size: 0.94rem; }
 .price { font-size: 1.6rem; margin: 0 0 16px; }
 .price-highlight { color: var(--ember); }
 
