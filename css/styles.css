@@ -340,3 +340,147 @@ h1, .section-title { font-size: clamp(2.25rem, 8vw, 5rem); line-height: 0.96; le
   .section-shell { padding: 34px 0; }
   .pattern-frame { padding: 22px; border-radius: 24px; box-shadow: 5px 5px 0 var(--ink); }
 }
+
+/* Section-specific mood themes for vertical pages. Keep navigation colors shared. */
+.theme-exam {
+  --theme-page: #0B1226;
+  --theme-card: #131B33;
+  --theme-primary: #C9A227;
+  --theme-secondary: #3D5A8A;
+  --theme-text: #E8E4D8;
+  --theme-muted: #9CA3BD;
+  --theme-border: rgba(201, 162, 39, 0.2);
+  --theme-achievement: #D9A94E;
+  background: var(--theme-page);
+}
+
+.theme-school {
+  --theme-page: #0F2D2B;
+  --theme-card: #163936;
+  --theme-primary: #2FBF8F;
+  --theme-secondary: #4AC0C0;
+  --theme-text: #EAF7F2;
+  --theme-muted: #9FC4BA;
+  --theme-border: rgba(47, 191, 143, 0.2);
+  --theme-achievement: #D9A94E;
+  background: var(--theme-page);
+}
+
+.theme-fitness {
+  --theme-page: #1A1414;
+  --theme-card: #241C1C;
+  --theme-primary: #E8461C;
+  --theme-secondary: #FF6B35;
+  --theme-text: #F5EDE8;
+  --theme-muted: #C4A99C;
+  --theme-border: rgba(232, 70, 28, 0.2);
+  --theme-achievement: #D9A94E;
+  background: var(--theme-page);
+}
+
+.theme-exam main,
+.theme-school main,
+.theme-fitness main {
+  color: var(--theme-text);
+}
+
+.theme-exam .eyebrow,
+.theme-school .eyebrow,
+.theme-fitness .eyebrow,
+.theme-exam .section-title,
+.theme-school .section-title,
+.theme-fitness .section-title,
+.theme-exam .course-card h2,
+.theme-school .course-card h2,
+.theme-fitness .course-card h2,
+.theme-exam .course-addon h3,
+.theme-school .course-addon h3,
+.theme-fitness .course-addon h3 {
+  color: var(--theme-primary);
+}
+
+.theme-exam .section-intro,
+.theme-school .section-intro,
+.theme-fitness .section-intro,
+.theme-exam .course-card p,
+.theme-school .course-card p,
+.theme-fitness .course-card p,
+.theme-exam .course-addon li,
+.theme-school .course-addon li,
+.theme-fitness .course-addon li {
+  color: var(--theme-muted);
+}
+
+.theme-exam .course-card,
+.theme-school .course-card,
+.theme-fitness .course-card {
+  border: 1px solid var(--theme-border);
+  background: var(--theme-card);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.28);
+}
+
+.theme-exam .course-card:hover,
+.theme-school .course-card:hover,
+.theme-fitness .course-card:hover {
+  border-color: var(--theme-primary);
+}
+
+.theme-exam .course-addon,
+.theme-school .course-addon,
+.theme-fitness .course-addon {
+  border-top-color: var(--theme-border);
+}
+
+.theme-exam .price,
+.theme-school .price,
+.theme-fitness .price,
+.theme-exam .price-highlight,
+.theme-school .price-highlight,
+.theme-fitness .price-highlight {
+  color: var(--theme-achievement);
+}
+
+.theme-exam main a,
+.theme-school main a,
+.theme-fitness main a {
+  color: var(--theme-secondary);
+}
+
+.theme-exam .btn,
+.theme-school .btn,
+.theme-fitness .btn {
+  border-color: var(--theme-primary);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.38);
+}
+
+.theme-exam .btn:hover,
+.theme-school .btn:hover,
+.theme-fitness .btn:hover {
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.38);
+}
+
+.theme-exam .btn-primary,
+.theme-school .btn-primary,
+.theme-fitness .btn-primary {
+  background: var(--theme-primary);
+  color: var(--theme-page);
+}
+
+.theme-exam .btn-secondary,
+.theme-school .btn-secondary,
+.theme-fitness .btn-secondary {
+  border-color: var(--theme-secondary);
+  background: transparent;
+  color: var(--theme-secondary);
+}
+
+.theme-exam .pulse-badge,
+.theme-school .pulse-badge,
+.theme-fitness .pulse-badge,
+.theme-exam .card-icon,
+.theme-school .card-icon,
+.theme-fitness .card-icon {
+  border-color: var(--theme-border);
+  background: var(--theme-achievement);
+  color: var(--theme-page);
+}
