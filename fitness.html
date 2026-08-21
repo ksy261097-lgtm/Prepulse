@@ -1,265 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fitness | PrePulse</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fitness Coaching | PrePulse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <style>
-    .theme-fitness {
-      position: relative;
-      overflow-x: hidden;
-      isolation: isolate;
-    }
-
-    .theme-fitness::before {
-      content: "";
-      position: fixed;
-      inset: auto -10vw 8vh auto;
-      z-index: 0;
-      width: min(46rem, 82vw);
-      aspect-ratio: 1;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(232, 70, 28, 0.16), rgba(255, 107, 53, 0.08) 38%, transparent 68%);
-      opacity: 0.7;
-      pointer-events: none;
-    }
-
-    .theme-fitness .site-header,
-    .theme-fitness .section-shell,
-    .theme-fitness .site-footer {
-      position: relative;
-      z-index: 1;
-    }
-
-    .theme-fitness .section-shell {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .theme-fitness .section-shell > :not(.deadlift-bg) {
-      position: relative;
-      z-index: 1;
-    }
-
-    .deadlift-bg {
-      position: absolute;
-      right: clamp(-72px, -4vw, -20px);
-      top: 22px;
-      width: min(340px, 34vw);
-      height: 290px;
-      color: var(--theme-primary);
-      opacity: 0.16;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .deadlift-bg svg {
-      width: 100%;
-      height: 100%;
-      overflow: visible;
-    }
-
-    .deadlift-bg .lifter-torso {
-      transform-origin: 143px 178px;
-      animation: deadlift-hinge 4s ease-in-out infinite;
-    }
-
-    .deadlift-bg .barbell {
-      animation: deadlift-bar 4s ease-in-out infinite;
-    }
-
-    .theme-fitness .course-card {
-      transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
-      will-change: transform;
-    }
-
-    .fitness-progress {
-      max-width: 34rem;
-      margin: 28px 0 4px;
-      padding: 18px;
-      border: 1px solid var(--theme-border);
-      border-radius: 22px;
-      background: rgba(36, 28, 28, 0.76);
-      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.22);
-    }
-
-    .fitness-progress__meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 10px;
-      color: var(--theme-text);
-      font-weight: 900;
-    }
-
-    .fitness-progress__value {
-      color: var(--theme-achievement);
-    }
-
-    .fitness-progress__track {
-      height: 12px;
-      overflow: hidden;
-      border-radius: 999px;
-      background: rgba(245, 237, 232, 0.12);
-    }
-
-    .fitness-progress__fill {
-      display: block;
-      width: 68%;
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--theme-achievement), #f0c76a);
-      transform-origin: left center;
-      box-shadow: 0 0 16px rgba(217, 169, 78, 0.32);
-    }
-
-    @media (max-width: 600px) {
-      .deadlift-bg {
-        right: -48px;
-        top: 54px;
-        width: 200px;
-        height: 170px;
-        opacity: 0.12;
-      }
-    }
-
-    @media (prefers-reduced-motion: no-preference) {
-      .theme-fitness::before {
-        animation: fitness-ambient-glow 5.5s ease-in-out infinite;
-      }
-
-      .theme-fitness .btn-primary {
-        animation: fitness-cta-glow 2.1s ease-in-out infinite;
-      }
-
-      .theme-fitness .course-card:hover,
-      .theme-fitness .course-card:active,
-      .theme-fitness .course-card:focus-within {
-        transform: translateY(-4px);
-        box-shadow: 0 24px 54px rgba(0, 0, 0, 0.32), 0 0 28px rgba(232, 70, 28, 0.18);
-      }
-
-      .fitness-progress__fill {
-        animation: fitness-progress-fill 1.35s cubic-bezier(0.22, 1, 0.36, 1) both;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .theme-fitness::before,
-      .theme-fitness .btn-primary,
-      .fitness-progress__fill,
-      .deadlift-bg .lifter-torso,
-      .deadlift-bg .barbell {
-        animation: none;
-      }
-
-      .theme-fitness .course-card,
-      .theme-fitness .btn {
-        transition: none;
-        will-change: auto;
-      }
-    }
-
-    @keyframes deadlift-hinge {
-      0%, 100% { transform: rotate(0deg); }
-      50% { transform: rotate(-38deg); }
-    }
-
-    @keyframes deadlift-bar {
-      0%, 100% { transform: translateY(52px); }
-      50% { transform: translateY(160px); }
-    }
-
-
-    @keyframes fitness-cta-glow {
-      0%, 100% { box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.38), 0 0 0 rgba(232, 70, 28, 0); }
-      48% { box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.38), 0 0 18px rgba(232, 70, 28, 0.26); }
-    }
-
-    @keyframes fitness-progress-fill {
-      from { transform: scaleX(0); }
-      to { transform: scaleX(1); }
-    }
-
-    @keyframes fitness-ambient-glow {
-      0%, 100% { opacity: 0.48; transform: scale(0.98); }
-      50% { opacity: 0.78; transform: scale(1.04); }
-    }
-
-    .fitness-carousel { max-width: 680px; margin: 28px auto 4px; position: relative; }
-    .fitness-carousel__viewport { overflow: hidden; border-radius: 24px; touch-action: pan-y; }
-    .fitness-carousel__track { display: flex; transition: transform 540ms cubic-bezier(.22, 1, .36, 1); will-change: transform; }
-    .fitness-carousel__slide { flex: 0 0 100%; min-width: 100%; padding: 3px; box-sizing: border-box; }
-    .fitness-carousel__slide .course-card { width: 100%; box-sizing: border-box; margin: 0; min-height: 270px; display: flex; flex-direction: column; align-items: flex-start; }
-    .fitness-carousel__slide .course-card p { flex: 1; }
-    .fitness-carousel__controls { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 14px; }
-    .carousel-arrow { width: 36px; height: 36px; border: 1px solid var(--theme-border); border-radius: 50%; background: rgba(36, 28, 28, .78); color: var(--theme-text); font-size: 25px; line-height: 1; cursor: pointer; transition: border-color 180ms ease, color 180ms ease, transform 180ms ease; }
-    .carousel-arrow:hover, .carousel-arrow:focus-visible { color: var(--theme-primary); border-color: var(--theme-primary); transform: scale(1.05); }
-    .carousel-arrow:disabled { opacity: .4; cursor: default; transform: none; }
-    .carousel-dots { display: flex; align-items: center; gap: 8px; }
-    .carousel-dot { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%; background: var(--theme-text); opacity: .35; cursor: pointer; transition: transform 180ms ease, opacity 180ms ease, background 180ms ease; }
-    .carousel-dot[aria-selected="true"] { background: var(--theme-primary); opacity: 1; transform: scale(1.35); }
-    @media (max-width: 720px) { .fitness-carousel { width: min(90vw, 680px); } .fitness-carousel__slide .course-card { min-height: 255px; } }
-    @media (prefers-reduced-motion: reduce) { .fitness-carousel__track { transition-duration: 1ms; } .carousel-arrow, .carousel-dot { transition: none; } }
+    .theme-fitness { position: relative; overflow-x: hidden; isolation: isolate; }
+    .theme-fitness::before { content:""; position:fixed; inset:auto -10vw 8vh auto; z-index:0; width:min(46rem,82vw); aspect-ratio:1; border-radius:50%; background:radial-gradient(circle,rgba(232,70,28,.16),rgba(255,107,53,.08) 38%,transparent 68%); opacity:.7; pointer-events:none; }
+    .theme-fitness .site-header,.theme-fitness .section-shell,.theme-fitness .site-footer { position:relative; z-index:1; }
+    .theme-fitness .section-shell { max-width:1180px; overflow:hidden; }
+    .fitness-hero { padding:32px 0 28px; max-width:760px; }
+    .fitness-hero h1 { max-width:760px; margin-bottom:14px; }
+    .fitness-hero__actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:22px; }
+    .fitness-section { margin-top:60px; }
+    .fitness-section__heading { max-width:700px; margin-bottom:22px; }
+    .fitness-section__heading h2 { margin-bottom:8px; }
+    .fitness-section__heading p { color:var(--theme-text); opacity:.8; }
+    .goal-grid,.benefit-grid,.why-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+    .benefit-grid { grid-template-columns:repeat(4,1fr); }
+    .why-grid { grid-template-columns:repeat(4,1fr); }
+    .store-card { padding:22px; border:1px solid var(--theme-border); border-radius:20px; background:rgba(36,28,28,.72); box-shadow:0 16px 36px rgba(0,0,0,.16); }
+    .store-card h3 { margin:10px 0 8px; font-size:1.08rem; }
+    .store-card p { margin:0; color:var(--theme-text); opacity:.8; font-size:.93rem; line-height:1.55; }
+    .goal-card { min-height:230px; display:flex; flex-direction:column; }
+    .goal-card .btn { margin-top:auto; align-self:flex-start; }
+    .goal-icon { width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--theme-border);border-radius:14px;color:var(--theme-primary);font-size:1.35rem;background:rgba(232,70,28,.1); }
+    .fitness-carousel { max-width:720px; margin:26px auto 4px; position:relative; }
+    .fitness-carousel__viewport { overflow:hidden; border-radius:24px; touch-action:pan-y; }
+    .fitness-carousel__track { display:flex; transition:transform 540ms cubic-bezier(.22,1,.36,1); will-change:transform; }
+    .fitness-carousel__slide { flex:0 0 100%; min-width:100%; padding:3px; box-sizing:border-box; }
+    .fitness-carousel__slide .course-card { width:100%; box-sizing:border-box; margin:0; min-height:390px; display:flex; flex-direction:column; align-items:flex-start; position:relative; z-index:1; }
+    .fitness-carousel__slide .course-card p { flex:1; max-width:560px; }
+    .fitness-carousel__slide .course-card--popular { border-color:var(--theme-primary); box-shadow:0 22px 58px rgba(0,0,0,.3),0 0 30px rgba(232,70,28,.16); }
+    .plan-badge { display:inline-flex; padding:6px 10px; border-radius:999px; color:#241c1c; background:var(--theme-primary); font-size:.72rem; font-weight:900; letter-spacing:.08em; }
+    .plan-label { color:var(--theme-primary); text-transform:uppercase; font-size:.74rem; font-weight:900; letter-spacing:.12em; }
+    .plan-price { margin:14px 0 4px; font-size:2rem; font-weight:900; color:var(--theme-achievement); }
+    .plan-price small { color:var(--theme-text); opacity:.7; font-size:.85rem; font-weight:700; }
+    .plan-features { display:grid; gap:8px; padding:0; margin:16px 0 22px; list-style:none; width:100%; }
+    .plan-features li { color:var(--theme-text); opacity:.9; padding-left:22px; position:relative; font-size:.92rem; }
+    .plan-features li::before { content:"✓"; position:absolute; left:0; color:var(--theme-primary); font-weight:900; }
+    .fitness-carousel__controls { display:flex; align-items:center; justify-content:center; gap:18px; margin-top:14px; }
+    .carousel-arrow { width:36px;height:36px;border:1px solid var(--theme-border);border-radius:50%;background:rgba(36,28,28,.78);color:var(--theme-text);font-size:25px;line-height:1;cursor:pointer; }
+    .carousel-arrow:hover,.carousel-arrow:focus-visible { color:var(--theme-primary);border-color:var(--theme-primary); }
+    .carousel-dots { display:flex;gap:8px;align-items:center; }.carousel-dot { width:8px;height:8px;padding:0;border:0;border-radius:50%;background:var(--theme-text);opacity:.35;cursor:pointer; }.carousel-dot[aria-selected="true"] { background:var(--theme-primary);opacity:1;transform:scale(1.35); }
+    .deadlift-bg { position:absolute; right:clamp(-72px,-4vw,-20px); top:22px; width:min(340px,34vw);height:290px;color:var(--theme-primary);opacity:.13;pointer-events:none;z-index:0; }.deadlift-bg svg{width:100%;height:100%;overflow:visible}.deadlift-bg .lifter-torso{transform-origin:143px 178px;animation:deadlift-hinge 4s ease-in-out infinite}.deadlift-bg .barbell{animation:deadlift-bar 4s ease-in-out infinite}
+    .timeline { display:grid; grid-template-columns:repeat(7,1fr); gap:10px; padding:28px 0; }.timeline-step { position:relative; text-align:center; }.timeline-step:not(:last-child)::after { content:"→"; position:absolute; right:-13px; top:17px; color:var(--theme-primary); font-weight:900; }.timeline-step strong { display:grid;place-items:center;margin:0 auto 12px;width:52px;height:52px;border:1px solid var(--theme-primary);border-radius:50%;color:var(--theme-primary);background:rgba(36,28,28,.88); }.timeline-step p { font-size:.82rem;line-height:1.4;color:var(--theme-text);opacity:.75; }
+    .final-cta { margin:70px 0 25px; padding:42px 28px; text-align:center; border:1px solid var(--theme-border); border-radius:26px; background:linear-gradient(135deg,rgba(232,70,28,.13),rgba(36,28,28,.78)); }.final-cta p { color:var(--theme-text);opacity:.8; }.final-cta__actions { display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:20px; }
+    @media(max-width:900px){.goal-grid{grid-template-columns:repeat(3,1fr)}.benefit-grid{grid-template-columns:repeat(2,1fr)}.why-grid{grid-template-columns:repeat(2,1fr)}.timeline{grid-template-columns:repeat(4,1fr);row-gap:30px}.timeline-step:nth-child(4)::after{display:none}}
+    @media(max-width:650px){.fitness-hero{padding-top:18px}.goal-grid,.benefit-grid,.why-grid{grid-template-columns:1fr}.fitness-section{margin-top:44px}.timeline{display:grid;grid-template-columns:1fr;gap:18px;padding-left:14px}.timeline-step{text-align:left;display:grid;grid-template-columns:58px 1fr;column-gap:14px;align-items:center}.timeline-step strong{grid-row:span 2;margin:0}.timeline-step:not(:last-child)::after{content:"↓";right:auto;left:19px;top:auto;bottom:-22px}.deadlift-bg{right:-48px;top:50px;width:200px;height:170px;opacity:.08}.fitness-carousel{width:min(92vw,680px)}.fitness-carousel__slide .course-card{min-height:420px}}
+    @media(prefers-reduced-motion:reduce){.fitness-carousel__track{transition-duration:1ms}.deadlift-bg .lifter-torso,.deadlift-bg .barbell{animation:none}.theme-fitness::before{animation:none}}
   </style>
 </head>
 <body class="theme-fitness">
-  <header class="site-header">
-    <nav class="navbar" aria-label="Primary navigation">
-      <a class="brand" href="index.html"><span class="brand-mark">P<sup>2</sup></span><span class="brand-name">PrePulse</span></a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu"><span></span><span></span><span></span></button>
-      <ul class="nav-links" id="primary-menu"><li><a href="index.html">Home</a></li><li><a href="dashboard.html">Dashboard</a></li><li><a href="exam-prep.html">Exam Prep</a></li><li><a href="school.html">School</a></li><li><a href="fitness.html">Fitness</a></li></ul>
-    </nav>
-  </header>
-  <main class="section-shell">
-    <div class="deadlift-bg" aria-hidden="true">
-      <svg viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg">
-        <g class="lifter">
-          <line x1="120" y1="230" x2="110" y2="180" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
-          <line x1="150" y1="230" x2="140" y2="180" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
-          <g class="lifter-torso">
-            <circle cx="150" cy="120" r="16" fill="currentColor"/>
-            <line x1="150" y1="136" x2="140" y2="180" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
-            <line x1="145" y1="150" x2="105" y2="175" stroke="currentColor" stroke-width="6" stroke-linecap="round" class="lifter-arm"/>
-          </g>
-        </g>
-        <g class="barbell">
-          <line x1="60" y1="0" x2="150" y2="0" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-          <circle cx="60" cy="0" r="14" fill="none" stroke="currentColor" stroke-width="5"/>
-          <circle cx="150" cy="0" r="14" fill="none" stroke="currentColor" stroke-width="5" opacity="0"/>
-        </g>
-        <line x1="20" y1="230" x2="280" y2="230" stroke="currentColor" stroke-width="2" opacity="0.3"/>
-      </svg>
-    </div>
-    <p class="eyebrow">Training plans</p>
-    <h1 class="section-title">Fitness programs</h1>
-    <p class="section-intro">Simple training and nutrition tracks designed to support consistency.</p>
-    <section class="fitness-progress" aria-labelledby="fitness-progress-title">
-      <div class="fitness-progress__meta">
-        <span id="fitness-progress-title">Today's progress</span>
-        <span class="fitness-progress__value">68%</span>
-      </div>
-      <div class="fitness-progress__track" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" aria-label="Today's progress">
-        <span class="fitness-progress__fill"></span>
-      </div>
-    </section>
-    <section class="fitness-carousel" aria-roledescription="carousel" aria-label="Fitness programs">
-      <div class="fitness-carousel__viewport">
-        <div class="fitness-carousel__track" id="fitness-carousel-track"></div>
-      </div>
-      <div class="fitness-carousel__controls">
-        <button class="carousel-arrow" type="button" data-carousel-prev aria-label="Previous fitness program">‹</button>
-        <div class="carousel-dots" role="tablist" aria-label="Choose a fitness program"></div>
-        <button class="carousel-arrow" type="button" data-carousel-next aria-label="Next fitness program">›</button>
-      </div>
-    </section>
-  </main>
-  <footer class="site-footer"><p><strong>PPL</strong> PrePulse — Exam prep, school learning, and fitness in one place.</p><p class="footer-note">Static demo. Backend, payment verification, and content database will be connected later.</p></footer>
-  <script src="js/main.js"></script>
-</body>
-</html>
+<header class="site-header"><nav class="navbar" aria-label="Primary navigation"><a class="brand" href="index.html" aria-label="PrePulse home"><span class="brand-mark">P<sup>2</sup></span><span class="brand-name">PrePulse</span></a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu"><span></span><span></span><span></span></button><ul class="nav-links" id="primary-menu"><li><a href="index.html">Home</a></li><li><a href="dashboard.html">Dashboard</a></li><li><a href="exam-prep.html">Exam Prep</a></li><li><a href="school.html">School</a></li><li><a href="fitness.html">Fitness</a></li><li class="cart-nav-item"><a class="cart-nav-link" href="checkout.html" data-open-cart aria-label="Open shopping cart"><span aria-hidden="true">🛒</span> Cart <span class="cart-badge" data-cart-count>0</span></a></li></ul></nav></header>
+<main class="section-shell">
+  <div class="deadlift-bg" aria-hidden="true"><svg viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg"><line x1="120" y1="230" x2="110" y2="180" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><line x1="150" y1="230" x2="140" y2="180" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><g class="lifter-torso"><circle cx="150" cy="120" r="16" fill="currentColor"/><line x1="150" y1="136" x2="140" y2="180" stroke="currentColor" stroke-width="8" stroke-linecap="round"/><line x1="145" y1="150" x2="105" y2="175" stroke="currentColor" stroke-width="6" stroke-linecap="round"/></g><g class="barbell"><line x1="60" y1="0" x2="150" y2="0" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><circle cx="60" cy="0" r="14" fill="none" stroke="currentColor" stroke-width="5"/></g><line x1="20" y1="230" x2="280" y2="230" stroke="currentColor" stroke-width="2" opacity=".3"/></svg></div>
+  <section class="fitness-hero"><p class="eyebrow">PrePulse Coaching</p><h1 class="section-title">Build a stronger version of yourself.</h1><p class="section-intro">Structured training, practical nutrition and accountability designed around your real life—not random workouts or unrealistic promises.</p><div class="fitness-hero__actions"><a class="btn btn-primary" href="#plans">Explore Plans</a><a class="btn btn-secondary" href="#goals">Choose Your Goal</a></div></section>
+  <section class="fitness-section" id="goals"><div class="fitness-section__heading"><p class="eyebrow">Start with direction</p><h2>Choose Your Goal</h2><p>Pick the outcome that matters most right now. Your plan can evolve as you do.</p></div><div class="goal-grid">
+    <article class="store-card goal-card"><div class="goal-icon" aria-hidden="true">↘</div><h3>Lose Fat</h3><p>Reduce body fat while preserving your hard-earned muscle.</p><a class="btn btn-secondary" href="#plans" data-goal="fat-loss">Explore Plan</a></article>
+    <article class="store-card goal-card"><div class="goal-icon" aria-hidden="true">✦</div><h3>Build Muscle</h3><p>Build quality muscle through structured resistance training and progressive overload.</p><a class="btn btn-secondary" href="#plans" data-goal="muscle">Explore Plan</a></article>
+    <article class="store-card goal-card"><div class="goal-icon" aria-hidden="true">↗</div><h3>Get Stronger</h3><p>Build strength, improve performance and become physically capable.</p><a class="btn btn-secondary" href="#plans" data-goal="strength">Explore Plan</a></article>
+    <article class="store-card goal-card"><div class="goal-icon" aria-hidden="true">◒</div><h3>Fix Your Nutrition</h3><p>Get a practical nutrition strategy built around your calories, protein and food preferences.</p><a class="btn btn-secondary" href="#plans" data-goal="nutrition">Explore Plan</a></article>
+    <article class="store-card goal-card"><div class="goal-icon" aria-hidden="true">◎</div><h3>Build Overall Fitness</h3><p>Improve strength, mobility, stamina and everyday physical performance.</p><a class="btn btn-secondary" href="#plans" data-goal="fitness">Explore Plan</a></article>
+  </div></section>
+  <section class="fitness-section"><div class="fitness-section__heading"><p class="eyebrow">The wider payoff</p><h2>What Your Fitness Changes</h2><p>Consistent movement can improve how you train, recover and show up in everyday life.</p></div><div class="benefit-grid">
+    <article class="store-card"><h3>Stronger Muscles</h3><p>Improve muscular strength, endurance and physical capacity.</p></article><article class="store-card"><h3>Stronger Bones</h3><p>Resistance training provides mechanical stimulus that supports bone strength.</p></article><article class="store-card"><h3>Better Body Composition</h3><p>Build or retain muscle while reducing excess body fat.</p></article><article class="store-card"><h3>Better Glucose Regulation</h3><p>Regular resistance training and physical activity support healthy glucose regulation.</p></article><article class="store-card"><h3>Better Cardiovascular Fitness</h3><p>Regular physical activity supports cardiovascular fitness and overall heart health.</p></article><article class="store-card"><h3>Better Mental Well-being</h3><p>Regular exercise can support mood and overall psychological well-being.</p></article><article class="store-card"><h3>Better Sleep &amp; Recovery</h3><p>Consistent physical activity can support better sleep quality and recovery.</p></article><article class="store-card"><h3>Better Everyday Performance</h3><p>Strength and fitness improve physical capability beyond the gym.</p></article>
+  </div></section>
+  <section class="fitness-section"><div class="fitness-section__heading"><p class="eyebrow">A repeatable process</p><h2>The PrePulse Coaching System</h2><p>Every phase has a purpose, and every adjustment is based on what is actually happening.</p></div><div class="timeline"><div class="timeline-step"><strong>1</strong><div><h3>Assess</h3><p>Understand your goals, experience, lifestyle and starting point.</p></div></div><div class="timeline-step"><strong>2</strong><div><h3>Plan</h3><p>Build a structured training and nutrition strategy.</p></div></div><div class="timeline-step"><strong>3</strong><div><h3>Train</h3><p>Follow progressive and goal-specific workouts.</p></div></div><div class="timeline-step"><strong>4</strong><div><h3>Eat</h3><p>Use practical targets based on your goals and preferences.</p></div></div><div class="timeline-step"><strong>5</strong><div><h3>Track</h3><p>Monitor strength, adherence and progress.</p></div></div><div class="timeline-step"><strong>6</strong><div><h3>Adjust</h3><p>Modify training and nutrition according to progress.</p></div></div><div class="timeline-step"><strong>7</strong><div><h3>Transform</h3><p>Build sustainable results rather than chasing short-term changes.</p></div></div></div></section>
+  <section class="fitness-section" id="plans"><div class="fitness-section__heading"><p class="eyebrow">Choose your level of support</p><h2>Coaching Plans</h2><p>Start self-guided or get a plan that adapts around your goals, preferences and progress.</p></div><section class="fitness-carousel" aria-roledescription="carousel" aria-label="Coaching plans"><div class="fitness-carousel__viewport" tabindex="0"><div class="fitness-carousel__track" id="fitness-carousel-track"></div></div><div class="fitness-carousel__controls"><button class="carousel-arrow" type="button" data-carousel-prev aria-label="Previous coaching plan">‹</button><div class="carousel-dots" role="tablist" aria-label="Choose a coaching plan"></div><button class="carousel-arrow" type="button" data-carousel-next aria-label="Next coaching plan">›</button></div></section></section>
+  <section class="fitness-section"><div class="fitness-section__heading"><p class="eyebrow">The PrePulse difference</p><h2>Why PrePulse?</h2></div><div class="why-grid"><article class="store-card"><h3>Structured Training</h3><p>No random workouts. Every session has a purpose.</p></article><article class="store-card"><h3>Practical Nutrition</h3><p>A sustainable diet strategy designed around real-life food choices.</p></article><article class="store-card"><h3>Progressive Approach</h3><p>Training evolves as your strength and fitness improve.</p></article><article class="store-card"><h3>Accountability</h3><p>Your progress is monitored, reviewed and adjusted.</p></article></div></section>
+  <section class="final-cta"><p class="eyebrow">Your next phase starts here</p><h2>Ready to Build a Stronger Version of Yourself?</h2><p>Choose your goal, select your coaching plan and start your journey with PrePulse.</p><div class="final-cta__actions"><a class="btn btn-primary" href="#plans">Explore Plans</a><a class="btn btn-secondary" href="checkout.html">View Cart</a></div></section>
+</main><footer class="site-footer"><p><strong>PPL</strong> PrePulse — Exam prep, school learning, and fitness in one place.</p><p class="footer-note">Static demo. Payment verification and coaching activation will connect later.</p></footer><script src="js/main.js"></script></body></html>
