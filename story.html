@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Story | PrePulse</title>
+  <meta name="description" content="The PrePulse story — read it or watch it. Free to explore, no payment required.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .theme-story { position: relative; overflow-x: hidden; }
+    .story-hero { position:relative; overflow:hidden; padding:56px 32px; border-radius:32px; min-height:380px; display:flex; flex-direction:column; justify-content:center; background:#12090a; isolation:isolate; }
+    .story-blob { position:absolute; z-index:0; filter:blur(46px); border-radius:42% 58% 65% 35% / 45% 45% 55% 55%; animation:blob-morph 11s ease-in-out infinite; }
+    .story-blob--a { width:min(520px,62vw); aspect-ratio:1; left:-12%; top:-18%; background:radial-gradient(circle at 32% 30%, #ff6b35, #e8461c 55%, transparent 74%); opacity:.85; }
+    .story-blob--b { width:min(440px,54vw); aspect-ratio:1; right:-14%; bottom:-22%; background:radial-gradient(circle at 68% 68%, #5f82c4, #263a5c 55%, transparent 74%); opacity:.8; animation-delay:-5.5s; }
+    @keyframes blob-morph { 0%,100% { border-radius:42% 58% 65% 35% / 45% 45% 55% 55%; transform:rotate(0deg) scale(1); } 33% { border-radius:62% 38% 35% 65% / 55% 65% 35% 45%; transform:rotate(10deg) scale(1.07); } 66% { border-radius:35% 65% 55% 45% / 40% 40% 60% 60%; transform:rotate(-7deg) scale(.96); } }
+    .story-hero__content { position:relative; z-index:1; max-width:640px; }
+    .free-badge { display:inline-flex; align-items:center; gap:6px; padding:7px 14px; border-radius:999px; background:rgba(217,169,78,0.16); border:1px solid rgba(217,169,78,0.5); color:#F0D9A0; font-weight:800; font-size:.82rem; letter-spacing:.03em; margin-bottom:16px; }
+    .story-hero__content .eyebrow { color:#ff8a5c; }
+    .story-hero__content h1 { color:#fff; letter-spacing:-0.05em; }
+    .story-hero__content p { color:rgba(245,237,232,.82); }
+    .story-switch { margin-top:52px; }
+    .story-switch__heading { max-width:680px; margin-bottom:22px; }
+    .story-tabs { display:inline-flex; gap:6px; padding:6px; border-radius:999px; background:rgba(36,20,20,.06); border:2px solid var(--ink); margin-bottom:30px; }
+    .story-tab { border:0; background:transparent; padding:11px 20px; border-radius:999px; font-weight:900; cursor:pointer; font-size:.98rem; color:var(--ink); opacity:.6; }
+    .story-tab.is-active { opacity:1; background:linear-gradient(135deg, var(--coral), var(--ember)); color:#fff; box-shadow:0 6px 16px rgba(232,93,66,.28); }
+    .story-panel[hidden] { display:none; }
+    .story-entries { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+    .story-entry { padding:24px; }
+    .story-entry__tag { display:inline-block; padding:4px 10px; border-radius:999px; background:var(--gold); font-weight:900; font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; margin-bottom:12px; }
+    .story-entry h3 { margin:0 0 8px; font-size:1.15rem; }
+    .story-entry p { margin:0; opacity:.85; font-size:.95rem; }
+    .reel-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .reel-card { border:2px solid var(--ink); border-radius:22px; overflow:hidden; background:var(--paper); box-shadow:var(--shadow); }
+    .reel-thumb { position:relative; aspect-ratio:9/13; display:grid; place-items:center; background:linear-gradient(150deg,#ff8a5c,#e8461c 45%,#3d5a8a 100%); }
+    .reel-thumb__play { width:52px; height:52px; border-radius:50%; background:rgba(255,255,255,.92); display:grid; place-items:center; font-size:1.1rem; color:var(--ink); }
+    .reel-caption { padding:14px 16px; font-weight:800; font-size:.9rem; }
+    @media(max-width:820px) { .story-hero{padding:40px 22px} .story-entries{grid-template-columns:1fr} .reel-grid{grid-template-columns:repeat(2,1fr)} }
+    @media(max-width:520px) { .reel-grid{grid-template-columns:1fr} .story-tabs{width:100%} .story-tab{flex:1;text-align:center} }
+    @media(prefers-reduced-motion:reduce) { .story-blob{animation:none} }
+  </style>
+</head>
+<body class="theme-story">
+  <header class="site-header">
+    <nav class="navbar" aria-label="Primary navigation">
+      <a class="brand" href="index.html" aria-label="PrePulse home"><span class="brand-mark">P<sup>2</sup></span><span class="brand-name">PrePulse</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="primary-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="story.html">Story</a></li>
+        <li><a href="exam-prep.html">Exam Prep</a></li>
+        <li><a href="school.html">School</a></li>
+        <li><a href="fitness.html">Fitness</a></li>
+        <li class="cart-nav-item"><a class="cart-nav-link" href="checkout.html" data-open-cart aria-label="Open shopping cart"><span aria-hidden="true">🛒</span> Cart <span class="cart-badge" data-cart-count>0</span></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="section-shell">
+    <section class="story-hero">
+      <div class="story-blob story-blob--a" aria-hidden="true"></div>
+      <div class="story-blob story-blob--b" aria-hidden="true"></div>
+      <div class="story-hero__content">
+        <span class="free-badge">🔓 Free to explore — no payment needed</span>
+        <p class="eyebrow">The PrePulse Story</p>
+        <h1>Discipline,<br>documented.</h1>
+        <p class="section-intro">The real journey behind PrePulse — the grind, the setbacks, the wins. Read it or watch it, your call.</p>
+      </div>
+    </section>
+
+    <section class="story-switch" id="story-switch">
+      <div class="story-switch__heading">
+        <p class="eyebrow">Pick a format</p>
+        <h2 class="section-title">How do you want it?</h2>
+        <p class="section-intro">Same story, two formats. Switch anytime — it's open to everyone.</p>
+      </div>
+
+      <div class="story-tabs" role="tablist" aria-label="Story format">
+        <button class="story-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="panel-written" data-story-tab="written">📝 Written</button>
+        <button class="story-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-visual" data-story-tab="visual">🎬 Visual</button>
+      </div>
+
+      <!-- TODO: connect to Supabase/CMS to manage story entries and reels dynamically. -->
+      <div class="story-panel" id="panel-written" data-story-panel="written" role="tabpanel">
+        <div class="story-entries">
+          <article class="story-entry hub-card"><span class="story-entry__tag">Day 1</span><h3>Starting from zero</h3><p>No plan, no PB, just a decision to show up every day — for the body and for the books.</p></article>
+          <article class="story-entry hub-card"><span class="story-entry__tag">Day 18</span><h3>The days it didn't feel worth it</h3><p>Some mornings the gym felt pointless and the syllabus felt endless. Here's what kept the streak alive.</p></article>
+          <article class="story-entry hub-card"><span class="story-entry__tag">Day 34</span><h3>Small wins compounding</h3><p>Better squat numbers. Cleaner mock scores. Neither happened overnight — both happened together.</p></article>
+          <article class="story-entry hub-card"><span class="story-entry__tag">Day 50</span><h3>The Prelims morning</h3><p>Walking into the exam hall after 50 days of training the same discipline muscle. This is that story.</p></article>
+        </div>
+      </div>
+
+      <div class="story-panel" id="panel-visual" data-story-panel="visual" role="tabpanel" hidden>
+        <div class="reel-grid">
+          <a class="reel-card" href="#" aria-label="Watch: Starting from zero"><div class="reel-thumb"><span class="reel-thumb__play">▶</span></div><p class="reel-caption">Starting from zero</p></a>
+          <a class="reel-card" href="#" aria-label="Watch: 5am gym, 9pm books"><div class="reel-thumb"><span class="reel-thumb__play">▶</span></div><p class="reel-caption">5am gym, 9pm books</p></a>
+          <a class="reel-card" href="#" aria-label="Watch: Day 50 recap"><div class="reel-thumb"><span class="reel-thumb__play">▶</span></div><p class="reel-caption">Day 50 recap</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p><strong>PPL</strong> PrePulse — Exam prep, school learning, and fitness in one place.</p>
+    <p class="footer-note">This section is open to everyone — no plan or payment required.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    document.querySelectorAll('[data-story-tab]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('[data-story-tab]').forEach(function (b) {
+          b.classList.remove('is-active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('is-active');
+        btn.setAttribute('aria-selected', 'true');
+        var target = btn.getAttribute('data-story-tab');
+        document.querySelectorAll('[data-story-panel]').forEach(function (p) {
+          p.hidden = p.getAttribute('data-story-panel') !== target;
+        });
+      });
+    });
+  </script>
+</body>
+</html>
