@@ -32,3 +32,56 @@ if(fitnessTrack){const plans=PRODUCTS;const viewport=fitnessTrack.parentElement;
 const summary=document.querySelector('#checkout-summary-items');
 if(summary){const cart=readCart();summary.innerHTML=cart.length?cart.map(item=>{const p=product(item.id);return '<div class="summary-line"><span>'+p.name+' × '+item.quantity+'<small>'+(p.billingPeriod==='monthly'?'Monthly coaching':'One-time program')+'</small></span><strong>'+money(p.price*item.quantity)+'</strong></div>'}).join(''):'<div class="empty-checkout">Your cart is empty. <a href="fitness.html#plans">Choose a plan</a></div>';const total=document.querySelector('#checkout-total');if(total)total.textContent=money(cartSubtotal(cart));}
 const checkoutForm=document.querySelector('#checkout-form');if(checkoutForm)checkoutForm.addEventListener('submit',event=>{event.preventDefault();if(!readCart().length){showToast('Add a coaching plan before continuing.');return;}showToast('Development placeholder: payment gateway is not configured yet.');});
+
+
+// Shared ₹99 paywall gate for Exam Prep, School, and Fitness.
+(function () {
+  var PAYWALL_PROTECTED_PAGES = ['exam-prep.html', 'school.html', 'fitness.html'];
+  var SUPABASE_URL = 'https://davymhoailcabfwyjhmd.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRhdnltaG9haWxjYWJmd3lqaG1kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY3MzA3ODYsImV4cCI6MjEwMjMwNjc4Nn0.j2rzzWWxzEv-Y-ysaJuFDGXUbhCv3SMipzQKYVRJjQ4';
+  var PAYMENT_PAGE = 'register.html';
+  var supabaseClientPromise;
+  function pageName(path) { return path.split('/').pop().split('?')[0].split('#')[0]; }
+  function isProtectedPage(path) { return PAYWALL_PROTECTED_PAGES.indexOf(pageName(path)) !== -1; }
+  function loadSupabase() {
+    if (window.supabase && window.supabase.createClient) return Promise.resolve(window.supabase);
+    if (supabaseClientPromise) return supabaseClientPromise;
+    supabaseClientPromise = new Promise(function (resolve, reject) {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+      script.onload = function () { resolve(window.supabase); };
+      script.onerror = function () { reject(new Error('The access check could not load.')); };
+      document.head.appendChild(script);
+    });
+    return supabaseClientPromise;
+  }
+  function goToPayment() { window.location.href = PAYMENT_PAGE + '?reason=access'; }
+  async function hasPaidAccess() {
+    try {
+      var sdk = await loadSupabase();
+      var client = sdk.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      var sessionResult = await client.auth.getSession();
+      if (sessionResult.error || !sessionResult.data.session) return false;
+      var userResult = await client.from('users').select('has_paid').eq('id', sessionResult.data.session.user.id).maybeSingle();
+      return !userResult.error && !!userResult.data && userResult.data.has_paid === true;
+    } catch (error) { return false; }
+  }
+  function protectPageUntilChecked() {
+    if (!isProtectedPage(window.location.pathname)) return;
+    document.documentElement.classList.add('paywall-checking');
+    loadSupabase().then(hasPaidAccess).then(function (allowed) {
+      if (allowed) { document.documentElement.classList.remove('paywall-checking'); return; }
+      goToPayment();
+    }).catch(goToPayment);
+  }
+  document.addEventListener('click', function (event) {
+    var link = event.target.closest('a[href]');
+    if (!link) return;
+    var href = link.getAttribute('href');
+    if (!href || href.indexOf('://') !== -1 || href.charAt(0) === '#') return;
+    if (!isProtectedPage(href)) return;
+    event.preventDefault();
+    hasPaidAccess().then(function (allowed) { if (allowed) window.location.href = href; else goToPayment(); });
+  });
+  protectPageUntilChecked();
+}());
