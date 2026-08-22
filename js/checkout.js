@@ -77,15 +77,18 @@
         handler: async function (payment) {
           setSubmitting(true, 'Verifying payment...');
           try {
-            await postToFunction('verify-razorpay-payment', session.access_token, {
+            var verification = await postToFunction('verify-razorpay-payment', session.access_token, {
               order_id: payment.razorpay_order_id,
               payment_id: payment.razorpay_payment_id,
               signature: payment.razorpay_signature
             });
+            if (!verification.has_paid) {
+              throw new Error('We could not verify your payment. Please contact support if you were charged.');
+            }
             window.localStorage.removeItem(CART_KEY);
-            showMessage('Payment confirmed! Your coaching will be activated shortly.');
+            showMessage('Payment successful! Your Elite 1:1 Coaching plan is now active.');
             window.setTimeout(function () {
-              window.location.href = 'fitness.html?payment=success';
+              window.location.href = 'dashboard.html?payment=success';
             }, 1200);
           } catch (error) {
             console.error('Payment verification error:', error);
