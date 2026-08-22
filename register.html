@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <script src="js/auth.js"></script>
 </head>
 <body>
   <header class="site-header">
@@ -20,42 +21,99 @@
         <li><a href="exam-prep.html">Exam Prep</a></li>
         <li><a href="school.html">School</a></li>
         <li><a href="fitness.html">Fitness</a></li>
-      <li class="cart-nav-item"><a class="cart-nav-link" href="checkout.html" data-open-cart aria-label="Open shopping cart"><span aria-hidden="true">🛒</span> Cart <span class="cart-badge" data-cart-count>0</span></a></li></ul>
+        <li class="cart-nav-item"><a class="cart-nav-link" href="checkout.html" data-open-cart aria-label="Open shopping cart"><span aria-hidden="true">🛒</span> Cart <span class="cart-badge" data-cart-count>0</span></a></li>
+      </ul>
     </nav>
   </header>
-
   <main class="section-shell narrow-page">
     <section class="form-panel pattern-frame">
       <p class="eyebrow">Join PrePulse</p>
-      <h1>Get platform access for <span class="price-highlight" data-price="99">₹99</span></h1>
-      <p>Pay once to open the placeholder dashboard flow. Real payment verification will be added with Razorpay in a later task.</p>
-      <form id="registration-form" class="access-form">
-        <!-- TODO: connect to Supabase to save user registration records. -->
-        <!-- TODO: connect to Razorpay and verify payment before dashboard access. -->
+      <h1>Create your <span class="price-highlight">PrePulse</span> account</h1>
+      <p>Create your account first. Payment integration will be connected next.</p>
+      <form id="registration-form" class="access-form" novalidate>
         <label for="name">Full Name</label>
-        <input id="name" name="name" type="text" placeholder="Your name" required>
-
+        <input id="name" name="name" type="text" placeholder="Your name" autocomplete="name" required>
         <label for="email">Email</label>
-        <input id="email" name="email" type="email" placeholder="you@example.com" required>
-
-        <label for="phone">Phone</label>
-        <input id="phone" name="phone" type="tel" placeholder="10-digit mobile number" required>
-
-        <div class="fee-box">
-          <span>One-time access fee</span>
-          <!-- ACCESS_PRICE: update manually here until admin pricing exists. -->
-          <strong data-price="99">₹99</strong>
-        </div>
-        <button class="btn btn-primary full-width" type="submit">Pay &amp; Continue</button>
+        <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" placeholder="At least 6 characters" autocomplete="new-password" minlength="6" required>
+        <label for="confirm-password">Confirm Password</label>
+        <input id="confirm-password" name="confirm-password" type="password" placeholder="Re-enter your password" autocomplete="new-password" minlength="6" required>
+        <p id="registration-error" role="alert" aria-live="polite" style="display:none;"></p>
+        <p id="registration-success" role="status" aria-live="polite" style="display:none;"></p>
+        <button id="registration-submit" class="btn btn-primary full-width" type="submit">Create Account</button>
       </form>
+      <p style="margin-top: 20px; text-align: center;">Already have an account? <a href="login.html">Log in</a></p>
     </section>
   </main>
-
   <footer class="site-footer">
     <p><strong>PPL</strong> PrePulse — Exam prep, school learning, and fitness in one place.</p>
     <p class="footer-note">Static demo. Backend, payment verification, and content database will be connected later.</p>
   </footer>
-
   <script src="js/main.js"></script>
+  <script>
+    (function () {
+      const form = document.getElementById('registration-form');
+      const nameInput = document.getElementById('name');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const confirmPasswordInput = document.getElementById('confirm-password');
+      const errorBox = document.getElementById('registration-error');
+      const successBox = document.getElementById('registration-success');
+      const submitButton = document.getElementById('registration-submit');
+      form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+        errorBox.style.display = 'none';
+        errorBox.textContent = '';
+        successBox.style.display = 'none';
+        successBox.textContent = '';
+        const name = nameInput.value.trim();
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+        if (!name) {
+          errorBox.textContent = 'Please enter your full name.';
+          errorBox.style.display = 'block';
+          return;
+        }
+        if (!email) {
+          errorBox.textContent = 'Please enter your email address.';
+          errorBox.style.display = 'block';
+          return;
+        }
+        if (!password) {
+          errorBox.textContent = 'Please enter a password.';
+          errorBox.style.display = 'block';
+          return;
+        }
+        if (password.length < 6) {
+          errorBox.textContent = 'Password must be at least 6 characters.';
+          errorBox.style.display = 'block';
+          return;
+        }
+        if (password !== confirmPassword) {
+          errorBox.textContent = 'Passwords do not match.';
+          errorBox.style.display = 'block';
+          return;
+        }
+        submitButton.disabled = true;
+        submitButton.textContent = 'Creating Account...';
+        try {
+          await window.PrePulseAuth.signUp(email, password);
+          successBox.textContent = 'Account created — payment integration coming next';
+          successBox.style.display = 'block';
+          form.reset();
+          submitButton.disabled = false;
+          submitButton.textContent = 'Create Account';
+        } catch (error) {
+          console.error('Registration error:', error);
+          errorBox.textContent = error && error.message ? error.message : 'Account creation failed. Please try again.';
+          errorBox.style.display = 'block';
+          submitButton.disabled = false;
+          submitButton.textContent = 'Create Account';
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
