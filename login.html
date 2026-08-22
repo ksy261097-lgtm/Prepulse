@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In | PrePulse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/auth.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar" aria-label="Primary navigation">
+      <a class="brand" href="index.html" aria-label="PrePulse home"><span class="brand-mark">P<sup>2</sup></span><span class="brand-name">PrePulse</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="primary-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="story.html">Story</a></li>
+        <li><a href="exam-prep.html">Exam Prep</a></li>
+        <li><a href="school.html">School</a></li>
+        <li><a href="fitness.html">Fitness</a></li>
+        <li class="cart-nav-item"><a class="cart-nav-link" href="checkout.html" data-open-cart aria-label="Open shopping cart"><span aria-hidden="true">🛒</span> Cart <span class="cart-badge" data-cart-count>0</span></a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="section-shell narrow-page">
+    <section class="form-panel pattern-frame">
+      <p class="eyebrow">Welcome Back</p>
+      <h1>Log in to <span class="price-highlight">PrePulse</span></h1>
+      <p>Sign in to access your PrePulse account.</p>
+      <form id="login-form" class="access-form" novalidate>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" placeholder="Your password" autocomplete="current-password" required>
+        <p id="login-error" role="alert" aria-live="polite" style="display:none;"></p>
+        <button id="login-submit" class="btn btn-primary full-width" type="submit">Log In</button>
+      </form>
+      <p style="margin-top: 20px; text-align: center;">Don't have an account? <a href="register.html">Sign up</a></p>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p><strong>PPL</strong> PrePulse — Exam prep, school learning, and fitness in one place.</p>
+    <p class="footer-note">Static demo. Backend, payment verification, and content database will be connected later.</p>
+  </footer>
+  <script src="js/main.js"></script>
+  <script>
+    (function () {
+      const form = document.getElementById('login-form');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const errorBox = document.getElementById('login-error');
+      const submitButton = document.getElementById('login-submit');
+      form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+        errorBox.style.display = 'none';
+        errorBox.textContent = '';
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+        if (!email || !password) {
+          errorBox.textContent = 'Please enter your email and password.';
+          errorBox.style.display = 'block';
+          return;
+        }
+        submitButton.disabled = true;
+        submitButton.textContent = 'Logging in...';
+        try {
+          await window.PrePulseAuth.signIn(email, password);
+          window.location.href = 'index.html';
+        } catch (error) {
+          console.error('Login error:', error);
+          errorBox.textContent = error && error.message ? error.message : 'Login failed. Please check your email and password.';
+          errorBox.style.display = 'block';
+          submitButton.disabled = false;
+          submitButton.textContent = 'Log In';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
