@@ -36,12 +36,19 @@ const summary=document.querySelector('#checkout-summary-items');
 if(summary){const cart=readCart();summary.innerHTML=cart.length?cart.map(item=>{const p=product(item.id);return '<div class="summary-line"><span>'+p.name+' × '+item.quantity+'<small>'+(p.billingPeriod==='monthly'?'Monthly coaching':'One-time program')+'</small></span><strong>'+money(p.price*item.quantity)+'</strong></div>'}).join(''):'<div class="empty-checkout">Your cart is empty. <a href="fitness.html#plans">Choose a plan</a></div>';const total=document.querySelector('#checkout-total');if(total)total.textContent=money(cartSubtotal(cart));}
 const checkoutForm=document.querySelector('#checkout-form');if(checkoutForm)checkoutForm.addEventListener('submit',event=>{event.preventDefault();if(!readCart().length){showToast('Add a coaching plan before continuing.');return;}showToast('Development placeholder: payment gateway is not configured yet.');});
 
+// Load the cinematic Fitness-only visual layer without changing other pages.
+if (document.body.classList.contains('theme-fitness')) {
+  const cinematicLink = document.createElement('link');
+  cinematicLink.rel = 'stylesheet';
+  cinematicLink.href = 'css/fitness-cinematic.css';
+  document.head.appendChild(cinematicLink);
+}
 
 // Shared ₹99 paywall gate for Exam Prep, School, and Fitness.
 (function () {
   var PAYWALL_PROTECTED_PAGES = ['exam-prep.html', 'school.html'];
   var SUPABASE_URL = 'https://davymhoailcabfwyjhmd.supabase.co';
-  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRhdnltaG9haWxjYWJmd3lqaG1kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY3MzA3ODYsImV4cCI6MjEwMjMwNjc4Nn0.j2rzzWWxzEv-Y-ysaJuFDGXUbhCv3SMipzQKYVRJjQ4';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJkYXZ5bWhvYWlsY2FiZnd5amhtZCIsInJlZiI6ImRhdnltaG9haWxjYWJmd3lqaG1kIiwiaWF0IjoxNzg2NzMwNzg2LCJleHAiOjIxMDIzMDY3ODZ9.j2rzzWWxzEv-Y-ysaJuFDGXUbhCv3SMipzQKYVRJjQ4';
   var PAYMENT_PAGE = 'register.html';
   var supabaseClientPromise;
   function pageName(path) { return path.split('/').pop().split('?')[0].split('#')[0]; }
