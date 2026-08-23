@@ -88,7 +88,7 @@
             window.localStorage.removeItem(CART_KEY);
             showMessage('Payment successful! Your Elite 1:1 Coaching plan is now active.');
             window.setTimeout(function () {
-              window.location.href = 'dashboard.html?payment=success';
+              window.location.href = 'client-dashboard.html?payment=success';
             }, 1200);
           } catch (error) {
             console.error('Payment verification error:', error);
