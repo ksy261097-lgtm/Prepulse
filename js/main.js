@@ -39,7 +39,7 @@ const checkoutForm=document.querySelector('#checkout-form');if(checkoutForm)chec
 
 // Shared ₹99 paywall gate for Exam Prep, School, and Fitness.
 (function () {
-  var PAYWALL_PROTECTED_PAGES = ['exam-prep.html', 'school.html', 'fitness.html'];
+  var PAYWALL_PROTECTED_PAGES = ['exam-prep.html', 'school.html'];
   var SUPABASE_URL = 'https://davymhoailcabfwyjhmd.supabase.co';
   var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRhdnltaG9haWxjYWJmd3lqaG1kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY3MzA3ODYsImV4cCI6MjEwMjMwNjc4Nn0.j2rzzWWxzEv-Y-ysaJuFDGXUbhCv3SMipzQKYVRJjQ4';
   var PAYMENT_PAGE = 'register.html';
