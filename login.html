@@ -25,12 +25,21 @@
       </ul>
     </nav>
   </header>
+
   <main class="section-shell narrow-page">
     <section class="form-panel pattern-frame">
-      <p class="eyebrow">Welcome Back</p>
-      <h1>Log in to <span class="price-highlight">PrePulse</span></h1>
-      <p>Sign in to access your PrePulse account.</p>
-      <form id="login-form" class="access-form" novalidate>
+      <p class="eyebrow" id="auth-eyebrow">Welcome Back</p>
+      <h1 id="auth-heading">Log in to <span class="price-highlight">PrePulse</span></h1>
+      <p id="auth-subcopy">Sign in to access your PrePulse account.</p>
+
+      <div class="auth-switch" id="auth-switch" role="tablist" aria-label="Choose login or sign up">
+        <div class="auth-switch-slider"></div>
+        <button type="button" id="tab-login" role="tab" aria-selected="true" aria-controls="login-form">Log In</button>
+        <button type="button" id="tab-signup" role="tab" aria-selected="false" aria-controls="registration-form">Sign Up</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <form id="login-form" class="access-form auth-form active" novalidate>
         <label for="email">Email</label>
         <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
         <label for="password">Password</label>
@@ -38,43 +47,157 @@
         <p id="login-error" role="alert" aria-live="polite" style="display:none;"></p>
         <button id="login-submit" class="btn btn-primary full-width" type="submit">Log In</button>
       </form>
-      <p style="margin-top: 20px; text-align: center;">Don't have an account? <a href="register.html" data-auth-page-switch>Sign up</a></p>
+
+      <!-- REGISTRATION FORM -->
+      <form id="registration-form" class="access-form auth-form" novalidate>
+        <label for="name">Full Name</label>
+        <input id="name" name="name" type="text" placeholder="Your name" autocomplete="name" required>
+        <label for="reg-email">Email</label>
+        <input id="reg-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+        <label for="reg-password">Password</label>
+        <input id="reg-password" name="password" type="password" placeholder="At least 6 characters" autocomplete="new-password" minlength="6" required>
+        <label for="confirm-password">Confirm Password</label>
+        <input id="confirm-password" name="confirm-password" type="password" placeholder="Re-enter your password" autocomplete="new-password" minlength="6" required>
+        <p id="registration-error" role="alert" aria-live="polite" style="display:none;"></p>
+        <p id="registration-success" role="status" aria-live="polite" style="display:none;"></p>
+        <button id="registration-submit" class="btn btn-primary full-width" type="submit">Create Account</button>
+      </form>
     </section>
   </main>
+
   <footer class="site-footer">
     <p><strong>PPL</strong> PrePulse — Exam prep, school learning, and fitness in one place.</p>
     <p class="footer-note">Static demo. Backend, payment verification, and content database will be connected later.</p>
   </footer>
+
   <script src="js/main.js"></script>
   <script>
     (function () {
-      const form = document.getElementById('login-form');
+      // ---- Switch logic ----
+      const authSwitch = document.getElementById('auth-switch');
+      const tabLogin = document.getElementById('tab-login');
+      const tabSignup = document.getElementById('tab-signup');
+      const loginForm = document.getElementById('login-form');
+      const regForm = document.getElementById('registration-form');
+      const eyebrow = document.getElementById('auth-eyebrow');
+      const heading = document.getElementById('auth-heading');
+      const subcopy = document.getElementById('auth-subcopy');
+
+      function setMode(mode) {
+        const isSignup = mode === 'signup';
+        authSwitch.classList.toggle('mode-signup', isSignup);
+        tabLogin.setAttribute('aria-selected', String(!isSignup));
+        tabSignup.setAttribute('aria-selected', String(isSignup));
+        loginForm.classList.toggle('active', !isSignup);
+        regForm.classList.toggle('active', isSignup);
+
+        if (isSignup) {
+          eyebrow.textContent = 'Join PrePulse';
+          heading.innerHTML = 'Create your <span class="price-highlight">PrePulse</span> account';
+          subcopy.textContent = 'Create your account first. Payment integration will be connected next.';
+        } else {
+          eyebrow.textContent = 'Welcome Back';
+          heading.innerHTML = 'Log in to <span class="price-highlight">PrePulse</span>';
+          subcopy.textContent = 'Sign in to access your PrePulse account.';
+        }
+
+        const url = new URL(window.location);
+        if (isSignup) { url.searchParams.set('mode', 'signup'); }
+        else { url.searchParams.delete('mode'); }
+        window.history.replaceState({}, '', url);
+      }
+
+      tabLogin.addEventListener('click', () => setMode('login'));
+      tabSignup.addEventListener('click', () => setMode('signup'));
+
+      // Opens directly on signup if ?mode=signup is in the URL (keeps old register.html links working)
+      const initialMode = new URLSearchParams(window.location.search).get('mode');
+      if (initialMode === 'signup') { setMode('signup'); }
+
+      // ---- Login submit (unchanged logic) ----
       const emailInput = document.getElementById('email');
       const passwordInput = document.getElementById('password');
-      const errorBox = document.getElementById('login-error');
-      const submitButton = document.getElementById('login-submit');
-      form.addEventListener('submit', async function (event) {
+      const loginError = document.getElementById('login-error');
+      const loginSubmit = document.getElementById('login-submit');
+      loginForm.addEventListener('submit', async function (event) {
         event.preventDefault();
-        errorBox.style.display = 'none';
-        errorBox.textContent = '';
+        loginError.style.display = 'none';
+        loginError.textContent = '';
         const email = emailInput.value.trim();
         const password = passwordInput.value;
         if (!email || !password) {
-          errorBox.textContent = 'Please enter your email and password.';
-          errorBox.style.display = 'block';
+          loginError.textContent = 'Please enter your email and password.';
+          loginError.style.display = 'block';
           return;
         }
-        submitButton.disabled = true;
-        submitButton.textContent = 'Logging in...';
+        loginSubmit.disabled = true;
+        loginSubmit.textContent = 'Logging in...';
         try {
           await window.PrePulseAuth.signIn(email, password);
           window.location.href = window.PrePulseAuth.getPostAuthRedirect();
         } catch (error) {
           console.error('Login error:', error);
-          errorBox.textContent = error && error.message ? error.message : 'Login failed. Please check your email and password.';
-          errorBox.style.display = 'block';
-          submitButton.disabled = false;
-          submitButton.textContent = 'Log In';
+          loginError.textContent = error && error.message ? error.message : 'Login failed. Please check your email and password.';
+          loginError.style.display = 'block';
+          loginSubmit.disabled = false;
+          loginSubmit.textContent = 'Log In';
+        }
+      });
+
+      // ---- Registration submit (unchanged logic) ----
+      const nameInput = document.getElementById('name');
+      const regEmailInput = document.getElementById('reg-email');
+      const regPasswordInput = document.getElementById('reg-password');
+      const confirmPasswordInput = document.getElementById('confirm-password');
+      const regError = document.getElementById('registration-error');
+      const regSuccess = document.getElementById('registration-success');
+      const regSubmit = document.getElementById('registration-submit');
+      regForm.addEventListener('submit', async function (event) {
+        event.preventDefault();
+        regError.style.display = 'none';
+        regError.textContent = '';
+        regSuccess.style.display = 'none';
+        regSuccess.textContent = '';
+        const name = nameInput.value.trim();
+        const email = regEmailInput.value.trim();
+        const password = regPasswordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+        if (!name) {
+          regError.textContent = 'Please enter your full name.';
+          regError.style.display = 'block';
+          return;
+        }
+        if (!email) {
+          regError.textContent = 'Please enter your email address.';
+          regError.style.display = 'block';
+          return;
+        }
+        if (!password) {
+          regError.textContent = 'Please enter a password.';
+          regError.style.display = 'block';
+          return;
+        }
+        if (password.length < 6) {
+          regError.textContent = 'Password must be at least 6 characters.';
+          regError.style.display = 'block';
+          return;
+        }
+        if (password !== confirmPassword) {
+          regError.textContent = 'Passwords do not match.';
+          regError.style.display = 'block';
+          return;
+        }
+        regSubmit.disabled = true;
+        regSubmit.textContent = 'Creating Account...';
+        try {
+          await window.PrePulseAuth.signUp(email, password);
+          window.location.href = window.PrePulseAuth.getPostAuthRedirect();
+        } catch (error) {
+          console.error('Registration error:', error);
+          regError.textContent = error && error.message ? error.message : 'Account creation failed. Please try again.';
+          regError.style.display = 'block';
+          regSubmit.disabled = false;
+          regSubmit.textContent = 'Create Account';
         }
       });
     })();
