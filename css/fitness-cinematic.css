@@ -1,0 +1,277 @@
+/* PrePulse Fitness — cinematic layer. Scoped to .theme-fitness so other pages remain unchanged. */
+.theme-fitness {
+  --fit-bg: #07060a;
+  --fit-panel: rgba(15, 13, 20, .72);
+  --fit-panel-solid: #100d14;
+  --fit-text: #f4f0f7;
+  --fit-muted: #b8afbd;
+  --fit-line: rgba(255,255,255,.10);
+  --fit-accent: #f05a28;
+  --fit-accent-soft: #ff9b70;
+  --fit-gold: #e2bd78;
+  color: var(--fit-text);
+  background:
+    radial-gradient(ellipse at 72% 8%, rgba(240,90,40,.16), transparent 30rem),
+    radial-gradient(ellipse at 22% 32%, rgba(95,48,180,.11), transparent 28rem),
+    linear-gradient(180deg, #08070a 0%, #0b090d 48%, #09080b 100%);
+  min-height: 100vh;
+}
+
+.theme-fitness::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  opacity: .035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.65'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+
+.theme-fitness .site-header {
+  background: rgba(7,6,10,.76);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 16px 60px rgba(0,0,0,.34);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+.theme-fitness .navbar { min-height: 72px; }
+.theme-fitness .brand,
+.theme-fitness .nav-links a { color: var(--fit-text); }
+.theme-fitness .brand-mark { color: var(--fit-gold); text-shadow: 0 0 22px rgba(226,189,120,.25); }
+.theme-fitness .nav-links a { transition: color .25s ease, background .25s ease, transform .25s ease; }
+.theme-fitness .nav-links a:hover { background: rgba(240,90,40,.10); color: #fff; transform: translateY(-1px); }
+.theme-fitness .nav-toggle span { background: var(--fit-text); }
+
+.theme-fitness .section-shell {
+  position: relative;
+  max-width: 1280px;
+  padding: 0 0 84px;
+  overflow: visible;
+}
+
+.theme-fitness .section-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0 -10vw auto;
+  height: 720px;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(180deg, rgba(0,0,0,.55), transparent 78%);
+  -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,.55), transparent 78%);
+}
+
+.theme-fitness .fitness-hero {
+  position: relative;
+  isolation: isolate;
+  max-width: none;
+  min-height: min(720px, calc(100vh - 72px));
+  padding: clamp(110px, 16vh, 170px) clamp(28px, 6vw, 76px) 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  overflow: hidden;
+}
+
+.theme-fitness .fitness-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(circle at 78% 45%, rgba(240,90,40,.20), transparent 25rem),
+    radial-gradient(circle at 66% 65%, rgba(86,43,150,.13), transparent 26rem),
+    linear-gradient(90deg, rgba(7,6,10,.98) 0%, rgba(7,6,10,.92) 46%, rgba(7,6,10,.48) 100%);
+}
+
+.theme-fitness .fitness-hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 620px;
+  height: 620px;
+  right: -160px;
+  top: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(226,189,120,.10);
+  box-shadow: 0 0 120px rgba(240,90,40,.10), inset 0 0 90px rgba(240,90,40,.06);
+  animation: fitness-orbit 12s ease-in-out infinite alternate;
+}
+
+.theme-fitness .fitness-hero .eyebrow {
+  color: var(--fit-gold);
+  font-size: .78rem;
+  letter-spacing: .18em;
+  text-shadow: 0 0 24px rgba(226,189,120,.18);
+}
+
+.theme-fitness .fitness-hero h1 {
+  max-width: 900px;
+  margin-bottom: 24px;
+  font-size: clamp(3.4rem, 8vw, 7.5rem);
+  line-height: .88;
+  letter-spacing: -.065em;
+  color: transparent;
+  background: linear-gradient(180deg, #fff 0%, #f5edf5 48%, #bcb0c4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 0 24px 70px rgba(0,0,0,.42);
+  animation: fitness-rise .9s cubic-bezier(.16,1,.3,1) both;
+}
+
+.theme-fitness .fitness-hero .section-intro {
+  max-width: 720px;
+  color: var(--fit-muted);
+  font-size: clamp(1rem, 1.6vw, 1.18rem);
+  line-height: 1.75;
+  animation: fitness-rise .9s .12s cubic-bezier(.16,1,.3,1) both;
+}
+
+.theme-fitness .fitness-hero__actions { margin-top: 30px; animation: fitness-rise .9s .22s cubic-bezier(.16,1,.3,1) both; }
+.theme-fitness .btn {
+  min-height: 50px;
+  padding: 13px 22px;
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: 0 12px 34px rgba(0,0,0,.28);
+  transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease, border-color .35s ease, background .35s ease;
+}
+.theme-fitness .btn:hover { transform: translateY(-3px); box-shadow: 0 18px 42px rgba(0,0,0,.42); }
+.theme-fitness .btn-primary { color: #130b08; background: linear-gradient(135deg, #ff8b5e, var(--fit-accent)); border-color: rgba(255,155,112,.34); }
+.theme-fitness .btn-secondary { color: var(--fit-text); background: rgba(255,255,255,.035); border-color: rgba(255,255,255,.16); }
+.theme-fitness .btn-secondary:hover { background: rgba(255,255,255,.07); border-color: rgba(240,90,40,.45); }
+
+.theme-fitness .workout-bg {
+  position: absolute;
+  z-index: 0;
+  right: clamp(10px, 4vw, 80px);
+  top: 145px;
+  width: min(470px, 42vw);
+  height: 470px;
+  opacity: .18;
+  color: var(--fit-accent-soft);
+  filter: drop-shadow(0 0 36px rgba(240,90,40,.14));
+}
+.theme-fitness .workout-bg::before {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240,90,40,.16), transparent 65%);
+  filter: blur(18px);
+  animation: fitness-breathe 4.8s ease-in-out infinite;
+}
+.theme-fitness .workout-bg svg { position: relative; z-index: 1; }
+.theme-fitness .workout-bg .workout-figure { animation: workout-squat 3.6s ease-in-out infinite; }
+.theme-fitness .workout-bg .workout-pulse { animation: workout-glow 3.6s ease-in-out infinite; }
+
+.theme-fitness .fitness-section {
+  position: relative;
+  margin-top: 96px;
+  padding: 0 clamp(28px, 5vw, 64px);
+}
+.theme-fitness .fitness-section__heading { max-width: 760px; margin-bottom: 30px; }
+.theme-fitness .fitness-section__heading .eyebrow { color: var(--fit-accent-soft); font-size: .75rem; letter-spacing: .17em; }
+.theme-fitness .fitness-section__heading h2 { color: var(--fit-text); font-size: clamp(2rem, 4.5vw, 3.7rem); line-height: .98; letter-spacing: -.045em; }
+.theme-fitness .fitness-section__heading p:not(.eyebrow) { color: var(--fit-muted); opacity: .9; }
+
+.theme-fitness .goal-grid,
+.theme-fitness .benefit-grid,
+.theme-fitness .why-grid { gap: 16px; }
+
+.theme-fitness .store-card {
+  position: relative;
+  padding: 26px;
+  border: 1px solid var(--fit-line);
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(23,20,27,.78), rgba(12,10,15,.82));
+  box-shadow: 0 22px 70px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.045);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  transition: transform .45s cubic-bezier(.16,1,.3,1), border-color .45s ease, box-shadow .45s ease;
+}
+.theme-fitness .store-card::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: 23px;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(255,255,255,.055), transparent 35%);
+}
+.theme-fitness .store-card:hover { transform: translateY(-7px); border-color: rgba(240,90,40,.38); box-shadow: 0 30px 90px rgba(0,0,0,.40), 0 0 38px rgba(240,90,40,.06); }
+.theme-fitness .store-card h3 { color: #f5f0f5; }
+.theme-fitness .store-card p { color: var(--fit-muted); }
+.theme-fitness .goal-icon { color: var(--fit-accent-soft); background: rgba(240,90,40,.07); border-color: rgba(240,90,40,.28); box-shadow: 0 0 26px rgba(240,90,40,.08); }
+.theme-fitness .goal-card .btn { position: relative; z-index: 2; }
+
+.theme-fitness .fitness-carousel { max-width: 820px; }
+.theme-fitness .fitness-carousel__viewport { border-radius: 28px; box-shadow: 0 34px 100px rgba(0,0,0,.36); }
+.theme-fitness .fitness-carousel__slide .course-card {
+  min-height: 430px;
+  padding: 34px;
+  border: 1px solid var(--fit-line);
+  border-radius: 28px;
+  background: radial-gradient(circle at 85% 0%, rgba(240,90,40,.10), transparent 18rem), linear-gradient(145deg, #151119, #0d0b10);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+}
+.theme-fitness .fitness-carousel__slide .course-card--popular { border-color: rgba(240,90,40,.5); box-shadow: 0 30px 90px rgba(0,0,0,.48), 0 0 50px rgba(240,90,40,.09); }
+.theme-fitness .plan-label { color: var(--fit-gold); }
+.theme-fitness .plan-price { color: #fff; font-size: 2.5rem; }
+.theme-fitness .plan-price small { color: var(--fit-muted); }
+.theme-fitness .plan-features li { color: #d2cad5; }
+.theme-fitness .plan-features li::before { color: var(--fit-accent-soft); }
+.theme-fitness .plan-badge { background: var(--fit-gold); }
+.theme-fitness .carousel-arrow { background: rgba(255,255,255,.035); border-color: var(--fit-line); color: var(--fit-text); transition: all .25s ease; }
+.theme-fitness .carousel-arrow:hover { background: rgba(240,90,40,.10); color: var(--fit-accent-soft); }
+.theme-fitness .carousel-dot { background: #d9d0db; }
+.theme-fitness .carousel-dot[aria-selected="true"] { background: var(--fit-accent-soft); box-shadow: 0 0 14px rgba(240,90,40,.4); }
+
+.theme-fitness .timeline { gap: 12px; }
+.theme-fitness .timeline-step strong { background: #111016; border-color: rgba(240,90,40,.42); color: var(--fit-accent-soft); box-shadow: 0 0 28px rgba(240,90,40,.07); }
+.theme-fitness .timeline-step p { color: var(--fit-muted); }
+.theme-fitness .timeline-step:not(:last-child)::after { color: rgba(240,90,40,.65); }
+
+.theme-fitness .final-cta {
+  margin: 110px clamp(28px,5vw,64px) 30px;
+  padding: clamp(42px,7vw,76px) 28px;
+  border: 1px solid rgba(240,90,40,.22);
+  border-radius: 32px;
+  background: radial-gradient(circle at 50% 0%, rgba(240,90,40,.16), transparent 22rem), linear-gradient(145deg, rgba(22,17,22,.9), rgba(10,8,12,.94));
+  box-shadow: 0 40px 120px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.05);
+}
+.theme-fitness .final-cta .eyebrow { color: var(--fit-gold); }
+.theme-fitness .final-cta h2 { color: #fff; font-size: clamp(2rem,5vw,4.3rem); line-height: .98; letter-spacing: -.05em; }
+.theme-fitness .final-cta p:not(.eyebrow) { color: var(--fit-muted); }
+.theme-fitness .site-footer { background: #050509; border-top: 1px solid rgba(255,255,255,.08); color: #ddd5df; }
+.theme-fitness .footer-note { color: rgba(221,213,223,.58); }
+
+@keyframes fitness-rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fitness-orbit { from { transform: translate3d(0,0,0) scale(.96); } to { transform: translate3d(-22px,18px,0) scale(1.04); } }
+@keyframes fitness-breathe { 0%,100% { transform: scale(.94); opacity: .55; } 50% { transform: scale(1.08); opacity: 1; } }
+
+@media (max-width: 900px) {
+  .theme-fitness .fitness-hero { min-height: 680px; padding-top: 100px; }
+  .theme-fitness .workout-bg { right: -70px; top: 160px; width: 430px; opacity: .12; }
+  .theme-fitness .fitness-section { margin-top: 72px; }
+}
+
+@media (max-width: 650px) {
+  .theme-fitness .section-shell { width: 100%; padding-bottom: 54px; }
+  .theme-fitness .fitness-hero { min-height: 650px; padding: 90px 22px 72px; justify-content: flex-end; }
+  .theme-fitness .fitness-hero h1 { font-size: clamp(3rem, 15vw, 4.7rem); max-width: 680px; }
+  .theme-fitness .fitness-hero .section-intro { font-size: 1rem; line-height: 1.6; }
+  .theme-fitness .workout-bg { right: -86px; top: 92px; width: 330px; height: 330px; opacity: .10; }
+  .theme-fitness .fitness-section { margin-top: 58px; padding: 0 22px; }
+  .theme-fitness .fitness-section__heading h2 { font-size: 2.25rem; }
+  .theme-fitness .store-card { padding: 22px; }
+  .theme-fitness .fitness-carousel__slide .course-card { min-height: 430px; padding: 28px 22px; }
+  .theme-fitness .final-cta { margin: 78px 22px 24px; padding: 42px 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-fitness *, .theme-fitness *::before, .theme-fitness *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
+}
