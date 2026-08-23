@@ -130,10 +130,42 @@
     return data.session.user || null;
   }
 
+  function getPostAuthRedirect() {
+    const redirect = new URLSearchParams(window.location.search).get('redirect');
+    if (!redirect) {
+      return 'index.html';
+    }
+
+    try {
+      const destination = new URL(redirect, window.location.origin);
+      const destinationPage = destination.pathname.split('/').pop();
+      if (destination.origin !== window.location.origin || destinationPage === 'login.html' || destinationPage === 'register.html') {
+        return 'index.html';
+      }
+      return destination.pathname + destination.search + destination.hash;
+    } catch (error) {
+      return 'index.html';
+    }
+  }
+
+  function preserveRedirectWhenSwitchingAuthPages(event) {
+    const link = event.target.closest('[data-auth-page-switch]');
+    const redirect = new URLSearchParams(window.location.search).get('redirect');
+    if (!link || !redirect) {
+      return;
+    }
+    const destination = new URL(link.getAttribute('href'), window.location.href);
+    destination.searchParams.set('redirect', redirect);
+    link.href = destination.pathname.split('/').pop() + destination.search + destination.hash;
+  }
+
+  document.addEventListener('click', preserveRedirectWhenSwitchingAuthPages);
+
   window.PrePulseAuth = {
     signUp: signUp,
     signIn: signIn,
     signOut: signOut,
-    getCurrentUser: getCurrentUser
+    getCurrentUser: getCurrentUser,
+    getPostAuthRedirect: getPostAuthRedirect
   };
 })();

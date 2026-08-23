@@ -43,7 +43,7 @@
         <p id="registration-success" role="status" aria-live="polite" style="display:none;"></p>
         <button id="registration-submit" class="btn btn-primary full-width" type="submit">Create Account</button>
       </form>
-      <p style="margin-top: 20px; text-align: center;">Already have an account? <a href="login.html">Log in</a></p>
+      <p style="margin-top: 20px; text-align: center;">Already have an account? <a href="login.html" data-auth-page-switch>Log in</a></p>
     </section>
   </main>
   <footer class="site-footer">
@@ -100,11 +100,7 @@
         submitButton.textContent = 'Creating Account...';
         try {
           await window.PrePulseAuth.signUp(email, password);
-          successBox.textContent = 'Account created — payment integration coming next';
-          successBox.style.display = 'block';
-          form.reset();
-          submitButton.disabled = false;
-          submitButton.textContent = 'Create Account';
+          window.location.href = window.PrePulseAuth.getPostAuthRedirect();
         } catch (error) {
           console.error('Registration error:', error);
           errorBox.textContent = error && error.message ? error.message : 'Account creation failed. Please try again.';
