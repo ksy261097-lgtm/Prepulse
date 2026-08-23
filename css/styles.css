@@ -88,7 +88,57 @@ h1, .section-title { font-size: clamp(2.25rem, 8vw, 5rem); line-height: 0.96; le
 .access-form label { font-weight: 900; }
 .access-form input { width: 100%; padding: 14px 16px; border: 2px solid var(--ink); border-radius: 16px; background: #fff; font: inherit; }
 .fee-box { display: flex; justify-content: space-between; align-items: center; padding: 16px; border: 2px dashed var(--ink); border-radius: 18px; background: rgba(214, 162, 76, 0.18); }
+/* Auth switch — add this block to css/styles.css (near .access-form) */
 
+.auth-switch {
+  position: relative;
+  display: flex;
+  margin: 22px 0 4px;
+  padding: 4px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--cream);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.auth-switch button {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  background: transparent;
+  border-radius: 999px;
+  font-family: inherit;
+  font-weight: 900;
+  font-size: 0.95rem;
+  color: var(--ink);
+  cursor: pointer;
+  transition: color 160ms ease;
+}
+
+.auth-switch button[aria-selected="true"] {
+  color: #fff;
+}
+
+.auth-switch .auth-switch-slider {
+  position: absolute;
+  z-index: 1;
+  top: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  height: calc(100% - 8px);
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--coral), var(--ember));
+  transition: transform 220ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.auth-switch.mode-signup .auth-switch-slider {
+  transform: translateX(100%);
+}
+
+.auth-form { display: none; }
+.auth-form.active { display: grid; }
 .site-footer { border-top: 2px solid var(--ink); padding: 28px 16px; text-align: center; background: var(--ink); color: var(--cream); }
 .footer-note { margin-bottom: 0; color: rgba(247, 239, 225, 0.75); }
 
