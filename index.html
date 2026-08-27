@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/3d-scenes.css">
 </head>
 <body class="home-page">
   <header class="site-header">
@@ -27,6 +28,7 @@
 
   <main>
     <section class="hero hero-cinematic section-shell pattern-frame">
+      <div class="three-scene three-scene--home" data-three-scene="home" aria-hidden="true"></div>
       <div class="hero-content">
         <p class="brand-tagline">P<sup>2</sup> — Where Discipline Compounds.</p>
         <h1>One platform for sharper minds and stronger bodies.</h1>
@@ -76,5 +78,6 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script type="module" src="js/3d/home3d.js"></script>
 </body>
 </html>
