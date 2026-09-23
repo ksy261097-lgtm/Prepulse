@@ -3,7 +3,7 @@ const navLinks = document.querySelector('.nav-links');
 if (navToggle && navLinks) { navToggle.addEventListener('click', () => { const isOpen = navLinks.classList.toggle('is-open'); navToggle.setAttribute('aria-expanded', String(isOpen)); }); }
 
 const PRODUCTS = [
-  { id:'starter-fitness', name:'Starter Fitness Program', price:999, billingPeriod:'one-time', category:'program', maxQuantity:5, label:'STARTER', features:['Structured workout plan','Basic nutrition guidance','Exercise instructions','30-day training structure','Sets, reps and rest guidance','Basic progression system'] },
+  { id:'starter-fitness', name:'Core Fitness Program', price:999, billingPeriod:'one-time', category:'program', maxQuantity:5, label:'STARTER', features:['Structured workout plan','Basic nutrition guidance','Exercise instructions','30-day training structure','Sets, reps and rest guidance','Basic progression system'] },
   { id:'personalized-coaching', name:'Personalized Coaching', price:2999, billingPeriod:'monthly', category:'coaching', maxQuantity:1, label:'MOST POPULAR', features:['Personalized workout plan','Personalized nutrition plan','Calorie and protein targets','Indian food options and substitutions','Weekly check-in','Progress and workout adjustments','Exercise form feedback'] },
   { id:'elite-coaching', name:'Elite 1:1 Coaching', price:5999, billingPeriod:'monthly', category:'coaching', maxQuantity:1, label:'LIMITED SLOTS', features:['Everything in Personalized Coaching','Direct coach communication','Detailed exercise form analysis','Individual workout and nutrition modifications','Strength/performance programming','Plateau strategy','Frequent monitoring and priority support'] }
 ];
